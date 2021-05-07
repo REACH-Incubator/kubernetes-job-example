@@ -1,0 +1,6 @@
+statefulset:
+  replicaCount: 1
+persistence:
+  storageClass: longhorn
+  size: 10Gi
+defaultBuckets: "default"

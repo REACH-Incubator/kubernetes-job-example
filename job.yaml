@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mnist-example
+  namespace: job-example
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: deusto-registry
+      containers:
+      - name: mnist-example
+        image: registry.apps.deustotech.eu/kubernetes-test/job-example:v0.3
+        command: ["python",  "/source/mnist_example.py"]
+        env:
+          - name: MINIO_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                key: MINIO_ENDPOINT
+                name: example-job-secret
+          - name: MINIO_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                key: access-key
+                name: minio
+          - name: MINIO_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: secret-key
+                name: minio
+      restartPolicy: Never
+  backoffLimit: 4
