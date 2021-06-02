@@ -1,0 +1,52 @@
+---
+kind: pipeline
+type: kubernetes
+name: My FastAPI CI workflow
+
+steps:
+  - name: Run my FastAPI tests
+    image: python:3
+    commands:
+    - pip install -r requirements.txt
+    - pytest
+
+---
+kind: pipeline
+type: kubernetes
+name: My FastAPI Delivery test workflow
+
+steps:
+  - name: Build the Docker image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      repo: registry.apps.deustotech.eu/kubernetes-test/job-example
+      tag: ${DRONE_BUILD_NUMBER}
+      dry_run: true
+
+triggers:
+  event:
+    - pull_request
+
+---
+kind: pipeline
+type: kubernetes
+name: My FastAPI Deployment workflow
+
+steps:
+  - name: Build the Docker image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      repo: registry.apps.deustotech.eu/kubernetes-test/job-example
+      tag: ${DRONE_BUILD_NUMBER}
+
+triggers:
+  branch:
+    - master
