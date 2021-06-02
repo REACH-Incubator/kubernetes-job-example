@@ -1,16 +1,3 @@
----
-kind: pipeline
-type: kubernetes
-name: ci
-
-steps:
-  - name: test
-    image: python:3
-    commands:
-    - pip install -r requirements.txt
-    - pytest
-
----
 kind: pipeline
 type: kubernetes
 name: delivery-test
