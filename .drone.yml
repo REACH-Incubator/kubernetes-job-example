@@ -4,7 +4,7 @@ type: kubernetes
 name: ci
 
 steps:
-  - name: Run my FastAPI tests
+  - name: test
     image: python:3
     commands:
     - pip install -r requirements.txt
@@ -16,7 +16,7 @@ type: kubernetes
 name: delivery-test
 
 steps:
-  - name: Build the Docker image
+  - name: build
     image: plugins/docker
     settings:
       username:
@@ -37,7 +37,7 @@ type: kubernetes
 name: deployment
 
 steps:
-  - name: Build the Docker image
+  - name: build
     image: plugins/docker
     settings:
       username:
