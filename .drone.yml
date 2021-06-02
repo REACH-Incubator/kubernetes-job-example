@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: My FastAPI CI workflow
+name: ci
 
 steps:
   - name: Run my FastAPI tests
@@ -13,7 +13,7 @@ steps:
 ---
 kind: pipeline
 type: kubernetes
-name: My FastAPI Delivery test workflow
+name: delivery-test
 
 steps:
   - name: Build the Docker image
@@ -34,7 +34,7 @@ triggers:
 ---
 kind: pipeline
 type: kubernetes
-name: My FastAPI Deployment workflow
+name: deployment
 
 steps:
   - name: Build the Docker image
