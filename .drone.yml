@@ -15,9 +15,9 @@ steps:
       tag: ${DRONE_BUILD_NUMBER}
       dry_run: true
 
-triggers:
-  event:
-    - pull_request
+  triggers:
+    event:
+      - pull_request
 
 ---
 kind: pipeline
@@ -36,6 +36,6 @@ steps:
       registry: registry.apps.deustotech.eu
       tag: ${DRONE_BUILD_NUMBER}
 
-triggers:
-  branch:
-    - master
+  triggers:
+    branch:
+      - master
