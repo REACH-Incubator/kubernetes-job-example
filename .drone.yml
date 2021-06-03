@@ -45,7 +45,7 @@ steps:
       DRONE_BUILD_NUMBER: ${DRONE_BUILD_NUMBER}
 
   - name: deploy
-    image: sinlead/drone-kubectl
+    image: reachincubator/drone-kubectl
     settings:
       kubernetes_server: 
         from_secret: KUBERNETES_SERVER
