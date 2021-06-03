@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: mnist-example
+  name: mnist-example-${DRONE_BUILD_NUMBER}
   namespace: job-example
 spec:
   template:
@@ -9,7 +9,7 @@ spec:
       imagePullSecrets:
         - name: deusto-registry
       containers:
-      - name: mnist-example-${DRONE_BUILD_NUMBER}
+      - name: mnist-example
         image: registry.apps.deustotech.eu/kubernetes-test/job-example:${DRONE_BUILD_NUMBER}
         command: ["python",  "/source/mnist_example.py"]
         env:
