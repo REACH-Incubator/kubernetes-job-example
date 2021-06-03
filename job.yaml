@@ -9,7 +9,7 @@ spec:
       imagePullSecrets:
         - name: deusto-registry
       containers:
-      - name: mnist-example
+      - name: mnist-example-${DRONE_BUILD_NUMBER}
         image: registry.apps.deustotech.eu/kubernetes-test/job-example:${DRONE_BUILD_NUMBER}
         command: ["python",  "/source/mnist_example.py"]
         env:
