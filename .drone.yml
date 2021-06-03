@@ -1,0 +1,59 @@
+kind: pipeline
+type: kubernetes
+name: delivery-test
+
+steps:
+  - name: build
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      repo: registry.apps.deustotech.eu/kubernetes-test/job-example
+      registry: registry.apps.deustotech.eu
+      tag: ${DRONE_BUILD_NUMBER}
+      dry_run: true
+
+trigger:
+  event:
+    - pull_request
+
+---
+kind: pipeline
+type: kubernetes
+name: deployment
+
+steps:
+  - name: build
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      repo: registry.apps.deustotech.eu/kubernetes-test/job-example
+      registry: registry.apps.deustotech.eu
+      tag: ${DRONE_BUILD_NUMBER}
+
+  - name: variable-replacement
+    image: alpine
+    comands:
+    - apk add gettext
+    - cat job.yaml | envsubst > job-dist.yaml
+    environment:
+      DRONE_BUILD_NUMBER: ${DRONE_BUILD_NUMBER}
+
+  - name: deploy
+    image: sinlead/drone-kubectl
+    settings:
+      kubernetes_server: 
+        from_secret: KUBERNETES_SERVER
+      kubernetes_token:
+        from_secret: KUBERNETES_TOKEN
+    commands:
+    - kubectl apply -f job-dist.yaml
+
+trigger:
+  branch:
+    - master

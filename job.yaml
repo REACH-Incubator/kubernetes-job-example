@@ -10,7 +10,7 @@ spec:
         - name: deusto-registry
       containers:
       - name: mnist-example
-        image: registry.apps.deustotech.eu/kubernetes-test/job-example:v0.3
+        image: registry.apps.deustotech.eu/kubernetes-test/job-example:${DRONE_BUILD_NUMBER}
         command: ["python",  "/source/mnist_example.py"]
         env:
           - name: MINIO_ENDPOINT
