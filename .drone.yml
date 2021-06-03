@@ -38,7 +38,7 @@ steps:
 
   - name: variable-replacement
     image: alpine
-    comands:
+    commands:
     - apk add gettext
     - cat job.yaml | envsubst > job-dist.yaml
     environment:
@@ -57,3 +57,5 @@ steps:
 trigger:
   branch:
     - main
+  event:
+    - push
