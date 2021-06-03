@@ -52,6 +52,7 @@ steps:
       kubernetes_token:
         from_secret: KUBERNETES_TOKEN
     commands:
+    - kubectl version
     - kubectl apply -f job-dist.yaml
 
 trigger:
