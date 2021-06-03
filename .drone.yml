@@ -52,7 +52,7 @@ steps:
       kubernetes_token:
         from_secret: KUBERNETES_TOKEN
     commands:
-    - kubectl version
+    - kubectl delete -f job-dist.yaml
     - kubectl apply -f job-dist.yaml
 
 trigger:
