@@ -9,7 +9,9 @@ import numpy as np
 # Boto3 S3 library
 import boto3
 
+
 print("Hello REACH STARTUPS OC 2!")
+
 
 fashion_mnist = tf.keras.datasets.fashion_mnist
 
